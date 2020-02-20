@@ -85,10 +85,8 @@ void knapSack(int W, int* wt, int* val, int n)
    for(i=0;i<n+1;i++)
     K[i]=new int[W+1];
 //    int K[n+1][W+1]; 
-  std::cout<<"ok"<<std::endl;
    for (i = 0; i <= n; i++) 
    { 
-       std::cout<<i<<" of "<<n<<std::endl;
        char ch=getchar();
        for (w = 0; w <= W; w++) 
        { 
@@ -100,10 +98,26 @@ void knapSack(int W, int* wt, int* val, int n)
                  K[i][w] = K[i-1][w]; 
        } 
    } 
-   std::cout<<"fin"<<std::endl;
    int j=W;
    i=n;
-
+   int counter=0;
+    while(1)
+   {
+       if(K[i][j]==0)
+            break;
+       if(K[i][j]==K[i-1][j])
+       {
+           i--;
+       }
+       else
+       {
+           j-=wt[i-1];
+           counter++;
+       }
+   }
+   std::cout<<counter<<std::endl;
+   i=n;
+   j=W;
    while(1)
    {
        if(K[i][j]==0)
@@ -118,7 +132,8 @@ void knapSack(int W, int* wt, int* val, int n)
            std::cout<<wt[i-1]<<" ";
        }
    }
-   std::cout<<"("<<K[n][W]<<")"<<std::endl;
+   std::cout<<std::endl;
+//    std::cout<<"("<<K[n][W]<<")"<<std::endl;
 } 
 
 std::mutex m;
@@ -165,12 +180,19 @@ void randomm(int slicemax,int* array,int types,bool flag)
 
     if(flag)
     {
-        std::cout<<"\rBest for now: "<<std::endl;
+        // std::cout<<"\rBest for now: "<<std::endl;
+        // for(int i=0;i<bestarray.size();i++)
+        // {
+        //     std::cout<<bestarray.at(i)<<" ";
+        // }
+        // std::cout<<"("<<best<<")"<<std::endl;
+        std::cout<<"\r              ";
+        std::cout<<"\r"<<bestarray.size()<<std::endl;
         for(int i=0;i<bestarray.size();i++)
         {
             std::cout<<bestarray.at(i)<<" ";
         }
-        std::cout<<"("<<best<<")"<<std::endl;
+        std::cout<<std::endl<<std::endl;
     }
 
 }
@@ -186,12 +208,12 @@ int main()
         std::cin>>pizza;
         array[i]=pizza;
     }
-    std::cout<<"Max slices: "<<slicemax<<std::endl;
-    std::cout<<"Pizza types: "<<types<<std::endl;
-    std::cout<<std::endl<<"Slices of pizzas: "<<std::endl;
-    for(int i=0;i<types;i++)
-        std::cout<<array[i]<<" ";
-    std::cout<<std::endl<<std::endl;
+    // std::cout<<"Max slices: "<<slicemax<<std::endl;
+    // std::cout<<"Pizza types: "<<types<<std::endl;
+    // std::cout<<std::endl<<"Slices of pizzas: "<<std::endl;
+    // for(int i=0;i<types;i++)
+    //     std::cout<<array[i]<<" ";
+    // std::cout<<std::endl<<std::endl;
     generator.seed( /* your seed for the RNG goes here */ );
     std::thread** tarray=new std::thread*[16];
     for(int i=0;i<8;i++)
@@ -202,5 +224,6 @@ int main()
     {
         tarray[i]->join();
     }
+    // knapSack(slicemax,array,array,types);
     return 0; 
 } 
