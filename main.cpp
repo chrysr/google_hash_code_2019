@@ -139,10 +139,12 @@ void knapSack(int W, int* wt, int* val, int n)
 std::mutex m;
 std::vector<int> bestarray;
 int best=0;
-std::default_random_engine generator;
 void randomm(int slicemax,int* array,int types,bool flag)
 {
+    std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(0,types);
+    generator.seed( /* your seed for the RNG goes here */ );
+
     while(best<slicemax)
     {
         if(flag)
@@ -214,7 +216,6 @@ int main()
     // for(int i=0;i<types;i++)
     //     std::cout<<array[i]<<" ";
     // std::cout<<std::endl<<std::endl;
-    generator.seed( /* your seed for the RNG goes here */ );
     std::thread** tarray=new std::thread*[16];
     for(int i=0;i<8;i++)
     {
