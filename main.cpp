@@ -145,11 +145,11 @@ void randomm(int slicemax,int* array,int types,bool flag)
     std::uniform_int_distribution<int> distribution(0,types);
     while(best<slicemax)
     {
-        if(flag)
-        {
-            std::cout<<"\r"<<best;
-            fflush(stdout);
-        }
+        // if(flag)
+        // {
+        //     std::cout<<"\r"<<best;
+        //     fflush(stdout);
+        // }
         int sum=0;
         std::vector<int> used;
         while(1)
@@ -186,8 +186,8 @@ void randomm(int slicemax,int* array,int types,bool flag)
         //     std::cout<<bestarray.at(i)<<" ";
         // }
         // std::cout<<"("<<best<<")"<<std::endl;
-        std::cout<<"\r              ";
-        std::cout<<"\r"<<bestarray.size()<<std::endl;
+        // std::cout<<"\r              ";
+        std::cout<<bestarray.size()<<std::endl;
         for(int i=0;i<bestarray.size();i++)
         {
             std::cout<<bestarray.at(i)<<" ";
