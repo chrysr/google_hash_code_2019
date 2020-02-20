@@ -144,7 +144,7 @@ int best=0;
 std::default_random_engine generator;
 void randomm(int slicemax,int* array,int types,bool flag)
 {
-    std::uniform_int_distribution<int> distribution(0,types);
+    std::uniform_int_distribution<int> distribution(0,types-1);
     generator.seed( /* your seed for the RNG goes here */ );
 
     while(best<slicemax)
@@ -171,7 +171,7 @@ void randomm(int slicemax,int* array,int types,bool flag)
                     for(int i=0;i<used.size();i++)
                     {
                         // bestarray.push_back(array[used.at(i)]);
-                        bestarray.push_back(array[used.at(i)]);
+                        bestarray.push_back(used.at(i));
 
                     }
                     m.unlock();
@@ -220,15 +220,15 @@ int main()
     // for(int i=0;i<types;i++)
     //     std::cout<<array[i]<<" ";
     // std::cout<<std::endl<<std::endl;
-    // std::thread** tarray=new std::thread*[16];
-    // for(int i=0;i<8;i++)
-    // {
-    //     tarray[i]=new std::thread(randomm,slicemax,array,types,(i==0?true:false));
-    // }
-    // for(int i=0;i<8;i++)
-    // {
-    //     tarray[i]->join();
-    // }
-    knapSack(slicemax,array,array,types);
+    std::thread** tarray=new std::thread*[16];
+    for(int i=0;i<8;i++)
+    {
+        tarray[i]=new std::thread(randomm,slicemax,array,types,(i==0?true:false));
+    }
+    for(int i=0;i<8;i++)
+    {
+        tarray[i]->join();
+    }
+    // knapSack(slicemax,array,array,types);
     return 0; 
 } 
