@@ -129,7 +129,9 @@ void knapSack(int W, int* wt, int* val, int n)
        else
        {
            j-=wt[i-1];
-           std::cout<<wt[i-1]<<" ";
+        //    std::cout<<wt[i-1]<<" ";
+           std::cout<<i-1<<" ";
+
        }
    }
    std::cout<<std::endl;
@@ -168,7 +170,9 @@ void randomm(int slicemax,int* array,int types,bool flag)
                     bestarray.clear();
                     for(int i=0;i<used.size();i++)
                     {
+                        // bestarray.push_back(array[used.at(i)]);
                         bestarray.push_back(array[used.at(i)]);
+
                     }
                     m.unlock();
                 }
@@ -216,15 +220,15 @@ int main()
     // for(int i=0;i<types;i++)
     //     std::cout<<array[i]<<" ";
     // std::cout<<std::endl<<std::endl;
-    std::thread** tarray=new std::thread*[16];
-    for(int i=0;i<8;i++)
-    {
-        tarray[i]=new std::thread(randomm,slicemax,array,types,(i==0?true:false));
-    }
-    for(int i=0;i<8;i++)
-    {
-        tarray[i]->join();
-    }
-    // knapSack(slicemax,array,array,types);
+    // std::thread** tarray=new std::thread*[16];
+    // for(int i=0;i<8;i++)
+    // {
+    //     tarray[i]=new std::thread(randomm,slicemax,array,types,(i==0?true:false));
+    // }
+    // for(int i=0;i<8;i++)
+    // {
+    //     tarray[i]->join();
+    // }
+    knapSack(slicemax,array,array,types);
     return 0; 
 } 
